@@ -1,7 +1,9 @@
-﻿namespace Koren.Extensions.Hosting
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Koren.Extensions.Hosting
 {
     public interface IForegroundServiceBuilder
     {
-        IForegroundServiceBuilder AddTask<TTask>() where TTask : class,IForegroundTask;
+        IServiceCollection Services { get; }
     }
 }

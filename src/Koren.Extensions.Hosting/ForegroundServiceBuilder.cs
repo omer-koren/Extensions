@@ -11,12 +11,5 @@ namespace Koren.Extensions.Hosting
 
         public IServiceCollection Services { get; }
 
-        public IForegroundServiceBuilder AddTask<TTask>() where TTask : class,IForegroundTask
-        {
-            Services.AddSingleton<IForegroundTask, TTask>();
-
-            return this;
-
-        }
     }
 }
