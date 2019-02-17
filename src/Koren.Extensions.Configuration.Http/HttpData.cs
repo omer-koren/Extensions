@@ -2,7 +2,7 @@
 
 namespace Koren.Extensions.Configuration.Http
 {
-    class HttpData
+    public class HttpData
     {
         public long? Length { get; set; }
         public Stream Data { get; set; }

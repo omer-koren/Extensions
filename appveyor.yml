@@ -1,0 +1,17 @@
+version: 1.0.{build}
+
+image: Visual Studio 2017
+
+branches:
+  only:
+    - master
+    - dev
+
+environment:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+build_script:
+- ps: .\build.ps1
+
+test: off
+deploy: off
