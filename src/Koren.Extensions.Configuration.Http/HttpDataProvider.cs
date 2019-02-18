@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Primitives;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -58,8 +59,7 @@ namespace Koren.Extensions.Configuration.Http
                 }
                 catch (Exception e)
                 {
-                    //TODO
-                    throw;
+                    Debug.WriteLine("Failed in probing http configuration: " + e.ToString());
                 }
                 finally
                 {
