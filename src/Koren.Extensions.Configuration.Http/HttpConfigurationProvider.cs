@@ -23,14 +23,23 @@ namespace Koren.Extensions.Configuration.Http
             {
                 _changeTokenRegistration = ChangeToken.OnChange(
                     () => Source.HttpDataProvider.Watch(),
-                    async () =>
+                    () =>
                     {
-                        await Load(reload: true);
+                        Load(reload: true)
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
                     });
             }
         }
 
-
+        public override void Load()
+        {
+            Load(reload : false)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+        }
         private async Task Load(bool reload)
         {
             var data = await Source.HttpDataProvider.GetAsync();

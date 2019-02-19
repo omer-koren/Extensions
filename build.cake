@@ -17,6 +17,7 @@ Task("GitVersion")
 		var result = GitVersion();
 		packageVersion = result.NuGetVersionV2;
 
+
 		Information($"Version from GitVersion is {packageVersion}");
 	});
 

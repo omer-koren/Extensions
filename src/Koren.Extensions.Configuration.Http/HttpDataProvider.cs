@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Primitives;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -120,13 +121,20 @@ namespace Koren.Extensions.Configuration.Http
             {
                 response.EnsureSuccessStatusCode();
 
+                var ms = new MemoryStream();
 
-                var stream = await response.Content.ReadAsStreamAsync();
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                {
+                    await stream.CopyToAsync(ms);
+                }
+
+                ms.Position = 0;
+
                 var length = response.Content.Headers.ContentLength;
 
                 return new HttpData
                 {
-                    Data = stream,
+                    Data = ms,
                     Length = length,
                 };
             }

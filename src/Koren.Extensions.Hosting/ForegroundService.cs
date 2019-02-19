@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Koren.Extensions.Hosting
 {
-    public abstract class ForegroundService : BackgroundService
+    public class ForegroundService : BackgroundService
     {
         private readonly IEnumerable<IForegroundTask> _tasks;
         private readonly IApplicationLifetime _lifetime;
