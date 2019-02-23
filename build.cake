@@ -41,6 +41,13 @@ Task("Restore")
     });
  
 
+var repoName = EnvironmentVariable("APPVEYOR_REPO_NAME") ?? "owner-name/repo-name";
+var repoUrl = $"https://github.com/" + repoName;
+var repoBranch = EnvironmentVariable("APPVEYOR_REPO_BRANCH") ??  "master";
+var repoCommit = EnvironmentVariable("APPVEYOR_REPO_COMMIT") ?? "sha-1";
+
+var iconUrl = "https://s3.amazonaws.com/koren-extensions/logo.png";
+
 Task("Pack")
     .Does(() =>
     {
@@ -53,7 +60,14 @@ Task("Pack")
                 NoBuild = true,
                 IncludeSource = true,
                 IncludeSymbols = true,
-                ArgumentCustomization = args => args.Append($"/p:PackageVersion={packageVersion}"),
+                ArgumentCustomization = args => args.Append($"/p:PackageVersion={packageVersion} " +
+                                                             $"/p:PackageProjectUrl={repoUrl} " +
+                                                             $"/p:RepositoryUrl={repoUrl} " +
+                                                             $"/p:RepositoryType=git " +
+                                                             $"/p:RepositoryBranch={repoBranch} " +
+                                                             $"/p:Authors=\"Omer Koren\" " + 
+                                                             $"/p:PackageIconUrl={iconUrl} " + 
+                                                             $"/p:RepositoryCommit={repoCommit} "),
             });
     });
 
